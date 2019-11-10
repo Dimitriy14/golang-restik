@@ -1,0 +1,14 @@
+{
+  "ListenURL": ":4444",
+  "BasePath": "/restik",
+
+  "Postgres": {
+    "Host": "localhost",
+    "Port": "5432",
+    "DBName": "restik",
+    "User": "admin",
+    "Password": "1488"
+  },
+
+  "LogFile": "restik.log"
+}
