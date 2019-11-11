@@ -8,7 +8,11 @@ import (
 	"github.com/google/logger"
 )
 
-var Log Logger
+var (
+	Log Logger
+	//Postgres logger
+	PL PostgresLogger
+)
 
 // Logger - represents methods for logging
 type Logger interface {
@@ -22,6 +26,10 @@ type Logger interface {
 	Warnf(txID string, format string, v ...interface{})
 }
 
+type PostgresLogger interface {
+	Print(v ...interface{})
+}
+
 // Load loads logger
 func Load() error {
 	lf, err := os.Create(config.Conf.LogFile)
@@ -32,6 +40,7 @@ func Load() error {
 	l := logger.Init("Restik", true, true, lf)
 
 	Log = &loggerImpl{log: l}
+	PL = &postgresLoggerImpl{log: l}
 	return nil
 }
 
@@ -61,4 +70,12 @@ func (l *loggerImpl) Warn(txID string, v ...interface{}) {
 
 func (l *loggerImpl) Warnf(txID, format string, v ...interface{}) {
 	l.log.Warningf(fmt.Sprintf("%s\t%s", txID, format), v)
+}
+
+type postgresLoggerImpl struct {
+	log *logger.Logger
+}
+
+func (l *postgresLoggerImpl) Print(v ...interface{}) {
+	l.log.Info(v)
 }

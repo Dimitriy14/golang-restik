@@ -4,8 +4,9 @@ import (
 	"fmt"
 
 	"github.com/Dimitriy14/golang-restik/src/config"
+	"github.com/Dimitriy14/golang-restik/src/logger"
 	"github.com/jinzhu/gorm"
-	_ "github.com/lib/pq"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
 
 const dbInfo = "host=%s port=%s user=%s password=%s dbname=%s sslmode=disable"
@@ -24,6 +25,6 @@ func Load() error {
 		return err
 	}
 
-	_ = db
+	db.SetLogger(logger.PL)
 	return nil
 }
