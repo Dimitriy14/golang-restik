@@ -5,6 +5,8 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/Dimitriy14/golang-restik/src/services"
+
 	apploader "github.com/Dimitriy14/golang-restik/src/app-loader"
 	"github.com/Dimitriy14/golang-restik/src/config"
 	"github.com/Dimitriy14/golang-restik/src/logger"
@@ -23,8 +25,8 @@ func main() {
 	}
 
 	server := &http.Server{
-		Addr: config.Conf.ListenURL,
-		//Handler: there should be router,
+		Addr:    config.Conf.ListenURL,
+		Handler: services.NewRouter(),
 	}
 
 	logger.Log.Infof("tx", "Started serving at: %s", config.Conf.ListenURL)

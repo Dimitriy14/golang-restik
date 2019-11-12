@@ -11,6 +11,12 @@ import (
 
 const dbInfo = "host=%s port=%s user=%s password=%s dbname=%s sslmode=disable"
 
+var Client PGClient
+
+type PGClient struct {
+	Session *gorm.DB
+}
+
 func Load() error {
 	db, err := gorm.Open("postgres",
 		fmt.Sprintf(
@@ -25,6 +31,7 @@ func Load() error {
 		return err
 	}
 
+	Client = PGClient{Session: db}
 	db.SetLogger(logger.PL)
 	return nil
 }
