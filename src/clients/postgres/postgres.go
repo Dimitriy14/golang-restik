@@ -32,6 +32,7 @@ func Load() error {
 	}
 
 	Client = PGClient{Session: db}
-	db.SetLogger(logger.PL)
+	db.SetLogger(logger.NewGormLogger(logger.Log))
+	db.LogMode(true)
 	return nil
 }

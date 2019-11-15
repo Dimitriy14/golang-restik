@@ -24,7 +24,9 @@ type Configuration struct {
 		Password string `json:"Password" default:"1488"`
 	} `json:"Postgres"`
 
-	LogFile string `json:"LogFile" default:"restik.log"`
+	UseLogFile bool   `json:"UseLogFile" default:"false"`
+	LogFile    string `json:"LogFile" default:"restik.log"`
+	LogLvl     string `json:"LogLvl" default:"debug"`
 }
 
 func Load() error {

@@ -1,17 +1,14 @@
 package logger
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/Dimitriy14/golang-restik/src/config"
-	"github.com/google/logger"
+	"github.com/sirupsen/logrus"
 )
 
 var (
 	Log Logger
-	//Postgres logger
-	PL PostgresLogger
 )
 
 // Logger - represents methods for logging
@@ -24,58 +21,69 @@ type Logger interface {
 
 	Warn(txID string, v ...interface{})
 	Warnf(txID string, format string, v ...interface{})
-}
 
-type PostgresLogger interface {
-	Print(v ...interface{})
+	Debug(txID string, v ...interface{})
+	Debugf(txID string, format string, v ...interface{})
 }
 
 // Load loads logger
 func Load() error {
-	lf, err := os.Create(config.Conf.LogFile)
+	output := os.Stdout
+	if config.Conf.UseLogFile {
+		logFile, err := os.Create(config.Conf.LogFile)
+		if err != nil {
+			return err
+		}
+		output = logFile
+	}
+
+	logLvl, err := logrus.ParseLevel(config.Conf.LogLvl)
 	if err != nil {
 		return err
 	}
 
-	l := logger.Init("Restik", true, true, lf)
+	log := logrus.New()
+	log.SetFormatter(&logrus.TextFormatter{})
+	log.SetOutput(output)
+	log.SetLevel(logLvl)
 
-	Log = &loggerImpl{log: l}
-	PL = &postgresLoggerImpl{log: l}
+	Log = &loggerImpl{log: log}
+
 	return nil
 }
 
 type loggerImpl struct {
-	log *logger.Logger
+	log *logrus.Logger
 }
 
 func (l *loggerImpl) Info(txID string, v ...interface{}) {
-	l.log.Info(txID, v)
+	l.log.WithFields(logrus.Fields{"txID": txID}).Info(v)
 }
 
 func (l *loggerImpl) Infof(txID string, format string, v ...interface{}) {
-	l.log.Infof(fmt.Sprintf("%s\t%s", txID, format), v)
+	l.log.WithFields(logrus.Fields{"txID": txID}).Infof(format, v)
 }
 
 func (l *loggerImpl) Error(txID string, v ...interface{}) {
-	l.log.Error(txID, v)
+	l.log.WithFields(logrus.Fields{"txID": txID}).Error(v)
 }
 
 func (l *loggerImpl) Errorf(txID string, format string, v ...interface{}) {
-	l.log.Errorf(fmt.Sprintf("%s\t%s", txID, format), v)
+	l.log.WithFields(logrus.Fields{"txID": txID}).Errorf(format, v)
 }
 
 func (l *loggerImpl) Warn(txID string, v ...interface{}) {
-	l.log.Warning(txID, v)
+	l.log.WithFields(logrus.Fields{"txID": txID}).Warning(v)
 }
 
 func (l *loggerImpl) Warnf(txID, format string, v ...interface{}) {
-	l.log.Warningf(fmt.Sprintf("%s\t%s", txID, format), v)
+	l.log.WithFields(logrus.Fields{"txID": txID}).Warningf(format, v)
 }
 
-type postgresLoggerImpl struct {
-	log *logger.Logger
+func (l *loggerImpl) Debug(txID string, v ...interface{}) {
+	l.log.WithFields(logrus.Fields{"txID": txID}).Debug(v)
 }
 
-func (l *postgresLoggerImpl) Print(v ...interface{}) {
-	l.log.Info(v)
+func (l *loggerImpl) Debugf(txID, format string, v ...interface{}) {
+	l.log.WithFields(logrus.Fields{"txID": txID}).Debugf(format, v)
 }

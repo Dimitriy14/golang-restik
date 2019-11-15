@@ -5,6 +5,8 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/urfave/negroni"
+
 	"github.com/Dimitriy14/golang-restik/src/services"
 
 	apploader "github.com/Dimitriy14/golang-restik/src/app-loader"
@@ -24,12 +26,20 @@ func main() {
 		log.Fatal(err)
 	}
 
+	middlewareManager := negroni.New()
+	middlewareManager.Use(negroni.NewRecovery())
+	negroniLogger := negroni.NewLogger()
+	negroniLogger.ALogger = logger.NewNegroniLogger(logger.Log)
+
+	middlewareManager.Use(negroniLogger)
+	middlewareManager.UseHandler(services.NewRouter())
+
 	server := &http.Server{
 		Addr:    config.Conf.ListenURL,
-		Handler: services.NewRouter(),
+		Handler: middlewareManager,
 	}
 
-	logger.Log.Infof("tx", "Started serving at: %s", config.Conf.ListenURL)
+	logger.Log.Infof("", "Started serving at: %s", config.Conf.ListenURL)
 	if err := server.ListenAndServe(); err != nil {
 		logger.Log.Error("", "", "==== Restik stopped due to error: %v", err)
 	}

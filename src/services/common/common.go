@@ -78,3 +78,30 @@ func RenderJSONCreated(w http.ResponseWriter, response interface{}) {
 	}
 	render(w, http.StatusCreated, data)
 }
+
+// CloseRespBody closes resp.Body with returned error check
+func CloseRespBody(resp *http.Response) {
+	if resp == nil || resp.Body == nil {
+		return
+	}
+	err := resp.Body.Close()
+	if err != nil {
+		logger.Log.Warnf("", "failed to close response body (err: %v)", err)
+	}
+}
+
+// CloseReqBody closes req.Body with returned error check
+func CloseReqBody(req *http.Request) {
+	if req == nil || req.Body == nil {
+		return
+	}
+	err := req.Body.Close()
+	if err != nil {
+		logger.Log.Warnf("", "failed to close request body (err: %v)", err)
+	}
+}
+
+// RenderNoContentStatus is used to return 204 with empty body
+func RenderNoContentStatus(w http.ResponseWriter) {
+	w.WriteHeader(http.StatusNoContent)
+}

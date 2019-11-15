@@ -3,13 +3,19 @@ package models
 import (
 	"time"
 
+	"github.com/jinzhu/gorm"
+
 	"github.com/google/uuid"
 )
 
-type Order struct {
-	ID           uuid.UUID
-	Visitor      string
-	StartBooking time.Time
-	EndBooking   time.Time
-	Drinks       []Drink
+type Reservations struct {
+	ID      uuid.UUID `json:"id"`
+	Visitor string    `json:"visitor"`
+	StartAt time.Time `json:"startAt"`
+	EndAt   time.Time `json:"endAt"`
+	Drinks  []Drink   `json:"drinks" gorm:"many2many:reserved_drinks;"`
+}
+
+func (d *Reservations) BeforeCreate(scope *gorm.Scope) error {
+	return scope.SetColumn("ID", uuid.New())
 }

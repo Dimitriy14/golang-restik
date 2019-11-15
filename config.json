@@ -4,11 +4,13 @@
 
   "Postgres": {
     "Host": "localhost",
-    "Port": "5432",
+    "Port": "5431",
     "DBName": "restik",
     "User": "admin",
     "Password": "1488"
   },
 
-  "LogFile": "restik.log"
+  "UseLogFile": false,
+  "LogFile": "restik.log",
+  "LogLvl": "debug"
 }

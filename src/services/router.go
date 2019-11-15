@@ -21,6 +21,9 @@ func NewRouter() http.Handler {
 
 	router.HandleFunc("/drinks", ds.GetDrinks).Methods(http.MethodGet)
 	router.HandleFunc("/drinks", ds.SaveDrink).Methods(http.MethodPost)
+	router.HandleFunc("/drinks/{id}", ds.GetDrinkByID).Methods(http.MethodGet)
+	router.HandleFunc("/drinks/{id}", ds.UpdateDrink).Methods(http.MethodPut)
+	router.HandleFunc("/drinks/{id}", ds.DeleteDrink).Methods(http.MethodDelete)
 
 	corsRouter := mux.NewRouter()
 	{
