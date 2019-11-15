@@ -37,7 +37,7 @@ func main() {
 		Handler: middlewareManager,
 	}
 
-	logger.Log.Infof("", "Started serving at: %s", config.Conf.ListenURL)
+	logger.Log.Infof("", "Started serving at: %s", ":"+config.Conf.ListenURL)
 	if err := server.ListenAndServe(); err != nil {
 		logger.Log.Error("", "", "==== Restik stopped due to error: %v", err)
 	}
