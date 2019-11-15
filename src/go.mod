@@ -1,5 +1,6 @@
 module github.com/Dimitriy14/golang-restik/src
 
+// +heroku goVersion 1.12
 go 1.12
 
 require (

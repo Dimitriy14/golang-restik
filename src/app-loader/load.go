@@ -4,10 +4,8 @@ import (
 	"fmt"
 
 	"github.com/Dimitriy14/golang-restik/src/clients/postgres"
-
 	"github.com/Dimitriy14/golang-restik/src/config"
 	"github.com/Dimitriy14/golang-restik/src/logger"
-
 	"github.com/pkg/errors"
 )
 
