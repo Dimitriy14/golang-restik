@@ -9,13 +9,14 @@ import (
 )
 
 var (
-	FilePath = "../../config.json"
+	FilePath = "config.json"
 
 	Conf Configuration
 )
 
 type Configuration struct {
 	ListenURL string `json:"ListenURL" default:":4444" envconfig:"PORT"`
+	PORT      string `envconfig:"PORT"`
 	BasePath  string `json:"BasePath" default:"/restik"`
 
 	Postgres struct {

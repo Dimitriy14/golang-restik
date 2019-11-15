@@ -33,12 +33,12 @@ func main() {
 	middlewareManager.UseHandler(services.NewRouter())
 
 	server := &http.Server{
-		Addr:    config.Conf.ListenURL,
+		Addr:    ":" + config.Conf.PORT,
 		Handler: middlewareManager,
 	}
 
-	logger.Log.Infof("", "Started serving at: %s", ":"+config.Conf.ListenURL)
+	logger.Log.Infof("", "Started serving at: %s", config.Conf.PORT)
 	if err := server.ListenAndServe(); err != nil {
-		logger.Log.Error("", "", "==== Restik stopped due to error: %v", err)
+		logger.Log.Errorf("", "==== Restik stopped due to error: %v", err)
 	}
 }
