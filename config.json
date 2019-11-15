@@ -12,5 +12,6 @@
 
   "UseLogFile": false,
   "LogFile": "restik.log",
-  "LogLvl": "debug"
+  "LogLevel": "debug",
+  "": ""
 }

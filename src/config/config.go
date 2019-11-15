@@ -26,7 +26,7 @@ type Configuration struct {
 
 	UseLogFile bool   `json:"UseLogFile" default:"false"`
 	LogFile    string `json:"LogFile" default:"restik.log"`
-	LogLvl     string `json:"LogLvl" default:"debug"`
+	LogLevel   string `json:"LogLevel" default:"debug"`
 }
 
 func Load() error {

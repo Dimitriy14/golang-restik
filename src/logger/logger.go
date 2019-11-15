@@ -37,7 +37,7 @@ func Load() error {
 		output = logFile
 	}
 
-	logLvl, err := logrus.ParseLevel(config.Conf.LogLvl)
+	logLvl, err := logrus.ParseLevel(config.Conf.LogLevel)
 	if err != nil {
 		return err
 	}
