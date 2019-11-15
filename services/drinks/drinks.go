@@ -5,11 +5,12 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/Dimitriy14/golang-restik/pkg/dal"
-	"github.com/Dimitriy14/golang-restik/pkg/logger"
-	txID "github.com/Dimitriy14/golang-restik/pkg/logger/transaction-id"
-	"github.com/Dimitriy14/golang-restik/pkg/models"
-	"github.com/Dimitriy14/golang-restik/pkg/services/common"
+	"github.com/Dimitriy14/golang-restik/services/common"
+
+	"github.com/Dimitriy14/golang-restik/dal"
+	"github.com/Dimitriy14/golang-restik/logger"
+	txID "github.com/Dimitriy14/golang-restik/logger/transaction-id"
+	"github.com/Dimitriy14/golang-restik/models"
 	"github.com/google/uuid"
 	"github.com/gorilla/mux"
 )

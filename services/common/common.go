@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/Dimitriy14/golang-restik/pkg/logger"
+	"github.com/Dimitriy14/golang-restik/logger"
 )
 
 const (

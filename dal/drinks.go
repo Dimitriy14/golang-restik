@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/Dimitriy14/golang-restik/pkg/models"
+	"github.com/Dimitriy14/golang-restik/models"
 	"github.com/google/uuid"
 )
 

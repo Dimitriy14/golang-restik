@@ -3,7 +3,7 @@ package logger
 import (
 	"os"
 
-	"github.com/Dimitriy14/golang-restik/pkg/config"
+	"github.com/Dimitriy14/golang-restik/config"
 	"github.com/sirupsen/logrus"
 )
 

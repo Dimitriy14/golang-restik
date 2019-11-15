@@ -3,8 +3,8 @@ package dal
 import (
 	"context"
 
-	"github.com/Dimitriy14/golang-restik/pkg/clients/postgres"
-	"github.com/Dimitriy14/golang-restik/pkg/models"
+	"github.com/Dimitriy14/golang-restik/clients/postgres"
+	"github.com/Dimitriy14/golang-restik/models"
 	"github.com/google/uuid"
 )
 

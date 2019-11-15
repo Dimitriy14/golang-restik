@@ -3,9 +3,10 @@ package apploader
 import (
 	"fmt"
 
-	"github.com/Dimitriy14/golang-restik/pkg/clients/postgres"
-	"github.com/Dimitriy14/golang-restik/pkg/config"
-	"github.com/Dimitriy14/golang-restik/pkg/logger"
+	"github.com/Dimitriy14/golang-restik/clients/postgres"
+
+	"github.com/Dimitriy14/golang-restik/config"
+	"github.com/Dimitriy14/golang-restik/logger"
 	"github.com/pkg/errors"
 )
 

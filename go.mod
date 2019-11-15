@@ -1,4 +1,4 @@
-module github.com/Dimitriy14/golang-restik/pkg
+module github.com/Dimitriy14/golang-restik
 
 go 1.13
 

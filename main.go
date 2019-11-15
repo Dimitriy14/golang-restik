@@ -5,17 +5,15 @@ import (
 	"log"
 	"net/http"
 
+	apploader "github.com/Dimitriy14/golang-restik/app-loader"
+	"github.com/Dimitriy14/golang-restik/config"
+	"github.com/Dimitriy14/golang-restik/logger"
+	"github.com/Dimitriy14/golang-restik/services"
 	"github.com/urfave/negroni"
-
-	"github.com/Dimitriy14/golang-restik/pkg/services"
-
-	apploader "github.com/Dimitriy14/golang-restik/pkg/app-loader"
-	"github.com/Dimitriy14/golang-restik/pkg/config"
-	"github.com/Dimitriy14/golang-restik/pkg/logger"
 )
 
 func main() {
-	configPath := flag.String("-conf", "../config.json", "-config ")
+	configPath := flag.String("-conf", "config.json", "-config ")
 
 	if *configPath != "" {
 		config.FilePath = *configPath

@@ -3,8 +3,8 @@ package postgres
 import (
 	"fmt"
 
-	"github.com/Dimitriy14/golang-restik/pkg/config"
-	"github.com/Dimitriy14/golang-restik/pkg/logger"
+	"github.com/Dimitriy14/golang-restik/config"
+	"github.com/Dimitriy14/golang-restik/logger"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 )

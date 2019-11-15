@@ -4,10 +4,11 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/Dimitriy14/golang-restik/pkg/config"
-	"github.com/Dimitriy14/golang-restik/pkg/dal"
-	"github.com/Dimitriy14/golang-restik/pkg/logger"
-	"github.com/Dimitriy14/golang-restik/pkg/services/drinks"
+	"github.com/Dimitriy14/golang-restik/services/drinks"
+
+	"github.com/Dimitriy14/golang-restik/config"
+	"github.com/Dimitriy14/golang-restik/dal"
+	"github.com/Dimitriy14/golang-restik/logger"
 	"github.com/gorilla/mux"
 	"github.com/rs/cors"
 	"github.com/urfave/negroni"
