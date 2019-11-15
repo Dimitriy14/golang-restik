@@ -3,7 +3,7 @@
 
 FILE_PATH=./config.json
 
-ListenURL="{{service_port}}"
+ListenURL="{{PORT}}"
 
 # Logger
 LogLevel="{{log_level}}"
@@ -16,6 +16,8 @@ Port="{{postgres_port}}"
 User="{{postgres_user}}"
 DBName="{{postgres_db}}"
 Password="{{postgres_password}}"
+# Heroku PG
+HerokuPg="{{DATABASE_URL}}"
 
 echo "####################### Environment Variables ################################"
 echo "Log Level           = " $LogLevel
@@ -28,6 +30,7 @@ echo "	Port              = " $Port
 echo "	User              = " $User
 echo "	DBName            = " $DBName
 echo "	Password          = " $Password
+echo "	Heroku            = " $HerokuPg
 
 echo "####################### Environment Variables ################################"
 

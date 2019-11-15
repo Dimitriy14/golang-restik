@@ -3,7 +3,9 @@ package config
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"os"
+
+	"github.com/kelseyhightower/envconfig"
 )
 
 var (
@@ -13,7 +15,7 @@ var (
 )
 
 type Configuration struct {
-	ListenURL string `json:"ListenURL" default:"4444"`
+	ListenURL string `json:"ListenURL" default:":4444" envconfig:"PORT"`
 	BasePath  string `json:"BasePath" default:"/restik"`
 
 	Postgres struct {
@@ -24,16 +26,42 @@ type Configuration struct {
 		Password string `json:"Password" default:"1488"`
 	} `json:"Postgres"`
 
+	HerokuPg string `json:"HerokuPg" envconfig:"DATABASE_URL"`
+
 	UseLogFile bool   `json:"UseLogFile" default:"false"`
 	LogFile    string `json:"LogFile" default:"restik.log"`
 	LogLevel   string `json:"LogLevel" default:"debug"`
 }
 
 func Load() error {
-	fileContent, err := ioutil.ReadFile(FilePath)
-	if err != nil {
-		return fmt.Errorf("cannot read config file (file: %s): %s", FilePath, err)
+	if err := readFile(&Conf); err != nil {
+		return err
 	}
 
-	return json.Unmarshal(fileContent, &Conf)
+	if err := readEnv(&Conf); err != nil {
+		return err
+	}
+
+	fmt.Printf("%+v", Conf)
+	return nil
+}
+
+func readFile(cfg *Configuration) error {
+	fileContent, err := os.Open(FilePath)
+	if err != nil {
+		return err
+	}
+
+	if err = json.NewDecoder(fileContent).Decode(&Conf); err != nil {
+		return err
+	}
+	return nil
+}
+
+func readEnv(cfg *Configuration) error {
+	err := envconfig.Process("", cfg)
+	if err != nil {
+		return err
+	}
+	return nil
 }

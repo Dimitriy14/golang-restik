@@ -18,15 +18,19 @@ type PGClient struct {
 }
 
 func Load() error {
-	db, err := gorm.Open("postgres",
-		fmt.Sprintf(
+	url := config.Conf.HerokuPg
+	if url == "" {
+		url = fmt.Sprintf(
 			dbInfo,
 			config.Conf.Postgres.Host,
 			config.Conf.Postgres.Port,
 			config.Conf.Postgres.User,
 			config.Conf.Postgres.Password,
 			config.Conf.Postgres.DBName,
-		))
+		)
+	}
+
+	db, err := gorm.Open("postgres", url)
 	if err != nil {
 		return err
 	}

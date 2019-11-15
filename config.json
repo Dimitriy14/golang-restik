@@ -10,6 +10,8 @@
     "Password": "1488"
   },
 
+  "HerokuPg": "",
+
   "UseLogFile": false,
   "LogFile": "restik.log",
   "LogLevel": "debug",
