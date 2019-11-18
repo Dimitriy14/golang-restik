@@ -5,15 +5,17 @@ import (
 
 	"github.com/Dimitriy14/golang-restik/clients/postgres"
 	"github.com/Dimitriy14/golang-restik/models"
-	"github.com/google/uuid"
 )
 
 type Repository interface {
-	GetDrinks(ctx context.Context) ([]models.Drink, error)
-	GetDrinkByID(ctx context.Context, drinkID uuid.UUID) (models.Drink, error)
-	AddNewDrink(ctx context.Context, drink models.Drink) (models.Drink, error)
-	UpdateDrink(ctx context.Context, drink models.Drink) (models.Drink, error)
-	DeleteDrink(ctx context.Context, drinkID uuid.UUID) error
+	GetTables(ctx context.Context) ([]models.Table, error)
+	AddTable(ctx context.Context, table models.Table) (models.Table, error)
+
+	GetReservations(ctx context.Context) ([]models.Reservation, error)
+	SaveReservation(ctx context.Context, reservation models.Reservation) (models.Reservation, error)
+
+	GetFoods(ctx context.Context) ([]models.Food, error)
+	SaveFood(ctx context.Context, food models.Food) (models.Food, error)
 }
 
 type repoImpl struct {

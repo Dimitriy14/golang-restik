@@ -6,9 +6,9 @@ import (
 )
 
 type Table struct {
-	ID           uuid.UUID      `json:"id"`
-	Orders       []Reservations `json:"reservations"`
-	NowAvailable bool           `json:"nowAvailable"`
+	ID           uuid.UUID      `json:"id"   gorm:"primary_key"`
+	Sits         uint16         `json:"sits" gorm:"column:sits"`
+	Reservations []ReservedTime `json:"reservations,omitempty" gorm:"ForeignKey:Table; AssociationForeignKey:id"`
 }
 
 func (d *Table) BeforeCreate(scope *gorm.Scope) error {
